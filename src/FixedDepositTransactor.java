@@ -13,10 +13,10 @@ public class FixedDepositTransactor implements Transactor {
 
 	public double decrement(Account account, double amount, boolean isLockInPeriodOver) {
 		if (isLockInPeriodOver) {
-            account.setBalance(account.getBalance() - amount);
-			return account.getBalance();
-        } else {
-            System.out.println("Withdrawal cannot be processed. The account is still within the lock-in period.");
+			account.setBalance(account.getBalance() - amount);
+		return account.getBalance();
+		} else {
+			System.out.println("Withdrawal cannot be processed. The account is still within the lock-in period.");
 			return account.getBalance();
 		}
 	}

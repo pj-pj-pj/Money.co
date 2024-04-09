@@ -1,16 +1,16 @@
-import java.util.ArrayList;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Account {
 	private String accountNumber;
 	private String accountHolderName;
 	private LocalDate currentDate = LocalDate.now();
 	private String accountDescription = "Account";
-	protected double balance = 0;
-	protected ArrayList<Transaction> transactions =new ArrayList<>();
-	protected Transactor transactor;
+	private double balance = 0;
+	private Transactor transactor;
+	protected ArrayList<Transaction> transactions = new ArrayList<>();
 
-  	public Account(String accountNumber, String accountHolderName, String accountDescription) {
+	public Account(String accountNumber, String accountHolderName, String accountDescription) {
 		this.accountNumber = accountNumber;
 		this.accountHolderName = accountHolderName;
 		this.accountDescription = accountDescription;
@@ -22,17 +22,17 @@ public class Account {
 		return accountNumber;
 	}
 
-  	public String getAccountHolderName() {
-    	return accountHolderName;
+	public String getAccountHolderName() {
+		return accountHolderName;
 	}
 
 	public double getBalance() {
-    	return balance;
+		return balance;
 	}
 
 	public LocalDate getCurrentDate() {
-    	return currentDate;
-  	}
+		return currentDate;
+	}
 
 	public ArrayList<Transaction> getTransactions() {
 		return transactions;
@@ -62,24 +62,28 @@ public class Account {
 	// Use Transactor for deposit and withdraw methods
 	public void deposit(LocalDate date, double amount) {
 		transactor.increment(this, amount);
+
 		Transaction depositTransaction = new Transaction(date, amount, "Deposit");
 		transactions.add(depositTransaction);
 	}
 
 	public void deposit(LocalDate date, double amount, String description) {
 		transactor.increment(this, amount);
+
 		Transaction depositTransaction = new Transaction(date, amount, "Deposit", description);
 		transactions.add(depositTransaction);
 	}
 
 	public void withdraw(LocalDate date, double amount) {
 		transactor.decrement(this, amount);
+
 		Transaction depositTransaction = new Transaction(date, amount, "Withdraw");
 		transactions.add(depositTransaction);
 	}
 
 	public void withdraw(LocalDate date, double amount, String description) {
 		transactor.decrement(this, amount);
+
 		Transaction withdrawTransaction = new Transaction(date, amount, "Withdraw", description);
 		transactions.add(withdrawTransaction);
 	}
