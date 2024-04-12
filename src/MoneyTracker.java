@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class MoneyTracker {
-	UI ui = new UI();
-	User user = new User();
+	private UI ui = new UI();
+	private User user = new User();
 	private DefaultTableModel tableModel;
 
 	public void init() {
@@ -14,9 +14,28 @@ public class MoneyTracker {
 	private void setup() {
 		ui.setAccountName(user.getName());
 		ui.setTotalAccBalance(new DecimalFormat("0.00").format(user.getTotalBalance())); //Convert totalBalance to String
+
+		//display info on tables
 		displayLatestTransactions();
 		displayTransactions();
 		displayAccounts();
+
+		//actionListener
+		addTransaction();
+		
+		addAccountsToComboBox();
+	}
+
+	private void reload() {
+		ui.setTotalAccBalance(new DecimalFormat("0.00").format(user.getTotalBalance())); //Convert totalBalance to String
+
+		//display info on tables
+		displayLatestTransactions();
+		displayTransactions();
+		displayAccounts();
+
+		addAccountsToComboBox();
+
 	}
 
 	private void displayLatestTransactions() {
@@ -29,7 +48,7 @@ public class MoneyTracker {
 
 		// Add the latest transactions to the table model
 		for (Transaction transaction : latestTransactions) {
-			Object[] rowData = {transaction.getDescription(), transaction.getAmount()};
+			Object[] rowData = {transaction.getType(), transaction.getAmount()};
 			tableModel.addRow(rowData);
 		}
 	}
@@ -56,6 +75,36 @@ public class MoneyTracker {
 			Object[] rowData = {account.getAccountName(), new DecimalFormat("0.00").format(account.getBalance())};
 			tableModel.addRow(rowData);
     }
+	}
+
+	private void addAccountsToComboBox() {
+    javax.swing.DefaultComboBoxModel<String> comboModel = new javax.swing.DefaultComboBoxModel<>();
+    for (Account account : user.getAccounts()) {
+			comboModel.addElement(account.getAccountName());
+    }
+    ui.getcomboAccountList().setModel(comboModel);
+}
+
+	private void addTransaction() {
+		ui.getBtnSaveTransaction().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				ui.btnSaveTransactionActionPerformed(evt);
+				Transaction newTransaction = ui.getNewTransaction();
+
+				for (Account account : user.getAccounts()) {
+					if (newTransaction.getAccountName().equals(account.getAccountName())) {
+						if (newTransaction.getType().equalsIgnoreCase("income")) {
+							account.deposit(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+						} else {
+							account.withdraw(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+
+						}
+					}
+				}
+
+				reload();
+			}
+		});
 	}
 
 	public boolean logInSuccessful() {
