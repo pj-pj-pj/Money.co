@@ -1,33 +1,29 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Account {
-	private String accountNumber;
-	private String accountHolderName;
 	private LocalDate currentDate = LocalDate.now();
-	private String accountDescription = "Account";
+	private String accountName = "Account";
 	private double balance = 0;
 	private Transactor transactor;
 	protected ArrayList<Transaction> transactions = new ArrayList<>();
 
-	public Account(String accountNumber, String accountHolderName, String accountDescription) {
-		this.accountNumber = accountNumber;
-		this.accountHolderName = accountHolderName;
-		this.accountDescription = accountDescription;
+	public Account(String accountName) {
+		this.accountName = accountName;
 		this.transactor = new DefaultTransactor();
 	}
 
     // Getters
-	public String getAccountNumber() {
-		return accountNumber;
-	}
-
-	public String getAccountHolderName() {
-		return accountHolderName;
-	}
-
 	public double getBalance() {
-		return balance;
+		this.balance = 0;
+
+		for (Transaction transaction : getTransactions()) {
+			this.balance += transaction.getAmount();
+		}
+
+		return this.balance;
 	}
 
 	public LocalDate getCurrentDate() {
@@ -35,28 +31,19 @@ public class Account {
 	}
 
 	public ArrayList<Transaction> getTransactions() {
-		return transactions;
+    ArrayList<Transaction> tempList = new ArrayList<>();
+    tempList.addAll(transactions);
+
+    Collections.sort(tempList, Comparator.comparing(Transaction::getDate).reversed());
+    return tempList;
 	}
 
-	public String getAccountDescription() {
-		return accountDescription;
+	public String getAccountName() {
+		return accountName;
 	}
 
-	// Setters
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
-	public void setAccountHolderName(String accountHolderName) {
-		this.accountHolderName = accountHolderName;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
-
-	public void setAccountDescription(String accountDescription) {
-		this.accountDescription = accountDescription;
+	public void setaccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	// Use Transactor for deposit and withdraw methods
@@ -86,5 +73,10 @@ public class Account {
 
 		Transaction withdrawTransaction = new Transaction(date, amount, "Withdraw", description);
 		transactions.add(withdrawTransaction);
+	}
+
+	public void setBalance(double d) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'setBalance'");
 	}
 }

@@ -6,8 +6,8 @@ public class FixedDepositAccount extends Account {
     private boolean isLockInPeriodOver;
     private FixedDepositTransactor transactor;
 
-    public FixedDepositAccount(String accountNumber, String accountHolderName, String accountDescription, int lockInPeriodMonths) {
-        super(accountNumber, accountHolderName, accountDescription);
+    public FixedDepositAccount(String accountName, int lockInPeriodMonths) {
+        super(accountName);
         this.lockInPeriodMonths = lockInPeriodMonths;
         this.startDate = LocalDate.now(); // Setting the start date to the current date
         this.transactor = new FixedDepositTransactor();
