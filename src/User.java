@@ -39,8 +39,8 @@ public class User {
 
     System.out.println("\nAll Transactions:");
     for (Transaction transaction : getTransactionsList()) {
-			System.out.printf("    Date: %s, Amount: %.2f, Type: %s, Description: %s\n",
-			transaction.getDate(), transaction.getAmount(), transaction.getType(), transaction.getDescription());
+			System.out.printf("   Account name: %s, Date: %s, Amount: %.2f, Type: %s, Description: %s\n",
+			transaction.getAccountName(), transaction.getDate(), transaction.getAmount(), transaction.getType(), transaction.getDescription());
     }
 
 		System.out.println("Balance: " + getTotalBalance());
@@ -70,14 +70,25 @@ public class User {
 		addTransactions(vacation, 4);
 		addTransactions(fixedDeposit, 4);
 
+		addWithdraw(savings, 1);
+		addWithdraw(checking, 1);
+		addWithdraw(emergency, 2);
+		addWithdraw(vacation, 3);
+		addWithdraw(fixedDeposit, 3);
+
 		// Compute total account balance from accounts and transactions (Not implemented here, assuming it is handled elsewhere)
 	}
 
 	private void addTransactions(Account account, int count) {
 		for (int i = 0; i < count; i++) {
-			Transaction transaction = new Transaction(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Deposit", "Deposit #" + (i + 1));
-			account.transactions.add(transaction);
+			account.deposit(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Deposit #" + (i + 1));
 		}
+	}
+
+	private void addWithdraw(Account account, int count) {
+		for (int i = 0; i < count; i++) {
+			account.withdraw(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Withdraw #" + (i + 1));
+    }
 	}
 
 	public User(String name, String password) {
@@ -134,11 +145,11 @@ public class User {
 		// Calculate total income from all accounts
 		income = 0;
 		for (Account account : allAccounts) {
-				for (Transaction transaction : account.getTransactions()) {
-						if (transaction.getType().equalsIgnoreCase("Deposit")) {
-								income += transaction.getAmount();
-						}
+			for (Transaction transaction : account.getTransactions()) {
+				if (transaction.getType().equalsIgnoreCase("Deposit")) {
+					income += transaction.getAmount();
 				}
+			}
 		}
 		return income;
 	}

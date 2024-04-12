@@ -17,13 +17,13 @@ public class FixedDepositAccount extends Account {
     @Override
     public void withdraw(LocalDate date, double amount, String description) {
         transactor.decrement(this, amount, isLockInPeriodOver);
-        Transaction withdrawTransaction = new Transaction(date, amount, "Withdraw", description);
+        Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw", description);
         transactions.add(withdrawTransaction);
     }
 
     public void withdraw(LocalDate date, double amount) {
         transactor.decrement(this, amount, isLockInPeriodOver);
-        Transaction withdrawTransaction = new Transaction(date, amount, "Withdraw");
+        Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw");
         transactions.add(withdrawTransaction);
     }
     

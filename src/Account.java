@@ -50,33 +50,32 @@ public class Account {
 	public void deposit(LocalDate date, double amount) {
 		transactor.increment(this, amount);
 
-		Transaction depositTransaction = new Transaction(date, amount, "Deposit");
+		Transaction depositTransaction = new Transaction(this.getAccountName(), date, amount, "Deposit");
 		transactions.add(depositTransaction);
 	}
 
 	public void deposit(LocalDate date, double amount, String description) {
 		transactor.increment(this, amount);
 
-		Transaction depositTransaction = new Transaction(date, amount, "Deposit", description);
+		Transaction depositTransaction = new Transaction(this.getAccountName(), date, amount, "Deposit", description);
 		transactions.add(depositTransaction);
 	}
 
 	public void withdraw(LocalDate date, double amount) {
 		transactor.decrement(this, amount);
 
-		Transaction depositTransaction = new Transaction(date, amount, "Withdraw");
-		transactions.add(depositTransaction);
+		Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw");
+		transactions.add(withdrawTransaction);
 	}
 
 	public void withdraw(LocalDate date, double amount, String description) {
 		transactor.decrement(this, amount);
 
-		Transaction withdrawTransaction = new Transaction(date, amount, "Withdraw", description);
+    Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw", description);
 		transactions.add(withdrawTransaction);
 	}
 
 	public void setBalance(double d) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'setBalance'");
+		this.balance = d;
 	}
 }

@@ -840,6 +840,10 @@ private void contentPanelInit() {
 	);
 }
 
+public JTable getTblTransactions() {
+	return tblTransactions;
+}
+
 private void btnViewAllAccActionPerformed(java.awt.event.ActionEvent evt) {                                              
 	CardLayout card = (CardLayout)contentPanel.getLayout();
 	card.show(contentPanel, "cardViewAllAccounts");

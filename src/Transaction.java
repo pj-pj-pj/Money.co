@@ -5,15 +5,18 @@ public class Transaction {
 	private double amount;
 	private String type;
 	private String description;
+	private String accountName;
 
-	public Transaction(LocalDate date, double amount, String type) {
+	public Transaction(String accountName, LocalDate date, double amount, String type) {
+		this.accountName = accountName;
 		this.date = date;
 		this.amount = amount;
 		this.type = type;
 		this.description = "";
 	}
 
-	public Transaction(LocalDate date, double amount, String type, String description) {
+	public Transaction(String accountName, LocalDate date, double amount, String type, String description) {
+		this.accountName = accountName;
 		this.date = date;
 		this.amount = amount;
 		this.type = type;
@@ -21,6 +24,10 @@ public class Transaction {
 	}
 
 	// Getters 
+	public String getAccountName() {
+		return accountName;
+	}
+
 	public LocalDate getDate() {
 		return date;
 	}
