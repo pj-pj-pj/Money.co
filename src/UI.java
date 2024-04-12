@@ -1,8 +1,18 @@
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.text.NumberFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
+import javax.swing.text.NumberFormatter;
 
 import org.jdatepicker.impl.*; 
 import java.awt.*;  
@@ -28,8 +38,10 @@ private void initComponents() {
 	pack();
 	setLocationRelativeTo(null);
 	setVisible(true);
+	setSize(1013, 570);
 	setResizable(false);
-}                                                                 
+}            
+
 private void headerInit() {
 	header = new javax.swing.JPanel();
 	jLabel1 = new javax.swing.JLabel();
@@ -59,7 +71,7 @@ private void headerInit() {
 			.addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 539, Short.MAX_VALUE)
 			.addComponent(btnAddTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(52, 52, 52))
+			.addGap(12, 12, 12))
 	);
 	headerLayout.setVerticalGroup(
 		headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,7 +100,6 @@ private void sidebarInit() {
 	tblTransPreview = new javax.swing.JTable();
 
 	sidebar.setBackground(new java.awt.Color(204, 204, 204));
-
 	lblAccName.setBackground(new java.awt.Color(255, 255, 255));
 	lblAccName.setFont(new java.awt.Font("IM FELL DW Pica", 0, 18)); // NOI18N
 	lblAccName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -250,13 +261,13 @@ private void contentPanelInit() {
 	pnlAddTransHeader = new javax.swing.JPanel();
 	jLabel4 = new javax.swing.JLabel();
 	jLabel6 = new javax.swing.JLabel();
-	jTextField1 = new javax.swing.JTextField();
+	txtFieldAmount = new javax.swing.JTextField();
 	jLabel8 = new javax.swing.JLabel();
-	jComboBox1 = new javax.swing.JComboBox<>();
+	comboAccountList = new javax.swing.JComboBox<>();
 	jLabel9 = new javax.swing.JLabel();
 	jLabel10 = new javax.swing.JLabel();
 	jLabel11 = new javax.swing.JLabel();
-	jComboBox2 = new javax.swing.JComboBox<>();
+	comboTypeOfTransaction = new javax.swing.JComboBox<>();
 	btnSaveTransaction = new java.awt.Button();
 	txtFldDescription = new javax.swing.JTextField();
 	cardViewAllAccounts = new javax.swing.JPanel();
@@ -316,7 +327,7 @@ private void contentPanelInit() {
 	jScrollPane2.setViewportView(tblTransactions);
 
 	pnlAllAccHeader1.setBackground(new java.awt.Color(0, 0, 0));
-
+	pnlAllAccHeader1.setPreferredSize(new java.awt.Dimension(655, 68));
 	jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel18.setForeground(new java.awt.Color(255, 255, 255));
 	jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -390,14 +401,32 @@ private void contentPanelInit() {
 	jLabel6.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel6.setText("AMOUNT:");
 
-	jTextField1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jTextField1.setText("0.0");
+	txtFieldAmount.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	txtFieldAmount.setText("0.0");
+	txtFieldAmount.addKeyListener(new KeyListener() {
+		@Override
+		public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if (!(Character.isDigit(c) || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE) || (c == KeyEvent.VK_PERIOD))) {
+						e.consume(); // Ignore non-numeric characters
+				}
+		}
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			// DI KAILANGAN PERO BAWAL TANGGALIN
+		}
+
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// DI KAILANGAN PERO BAWAL TANGGALIN
+		}
+});
 
 	jLabel8.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel8.setText("ACCOUNT:");
 
-	jComboBox1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACCOUNT" }));
+	comboAccountList.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
 	jLabel9.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel9.setText("DESCRIPTION:");
@@ -408,22 +437,12 @@ private void contentPanelInit() {
 	jLabel11.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel11.setText("TYPE:");
 
-	jComboBox2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "INCOME", "EXPENSE" }));
-	jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			jComboBox2ActionPerformed(evt);
-		}
-	});
+	comboTypeOfTransaction.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	comboTypeOfTransaction.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "INCOME", "EXPENSE" }));
 
 	btnSaveTransaction.setBackground(new java.awt.Color(0, 0, 0));
 	btnSaveTransaction.setForeground(new java.awt.Color(255, 255, 255));
 	btnSaveTransaction.setLabel("+ ADD");
-	btnSaveTransaction.addActionListener(new java.awt.event.ActionListener() {
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			btnSaveTransactionActionPerformed(evt);
-		}
-	});
 
 	txtFldDescription.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
@@ -436,7 +455,7 @@ private void contentPanelInit() {
 	model.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 	model.setSelected(true); 
 	JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-	JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+	datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 
 	datePicker.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
@@ -458,9 +477,9 @@ private void contentPanelInit() {
 				.addGroup(cardAddTransactionLayout.createSequentialGroup()
 					.addGap(217, 217, 217)
 					.addComponent(btnSaveTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-				.addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, 360, Short.MAX_VALUE)
-				.addComponent(jTextField1)
-				.addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(comboAccountList, javax.swing.GroupLayout.Alignment.TRAILING, 0, 360, Short.MAX_VALUE)
+				.addComponent(txtFieldAmount)
+				.addComponent(comboTypeOfTransaction, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 				.addComponent(txtFldDescription)
 				.addComponent(datePicker))
 			.addGap(83, 83, 83))
@@ -471,15 +490,15 @@ private void contentPanelInit() {
 			.addComponent(pnlAddTransHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addGap(60, 60, 60)
 			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-				.addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(comboTypeOfTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addComponent(jLabel11))
 			.addGap(18, 18, 18)
 			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-				.addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(txtFieldAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addComponent(jLabel6))
 			.addGap(18, 18, 18)
 			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-				.addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(comboAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 				.addComponent(jLabel8))
 			.addGap(18, 18, 18)
 			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -539,7 +558,7 @@ private void contentPanelInit() {
 			.addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 			.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(27, 27, 27))
+			.addGap(27, 27, 50))
 	);
 	pnlAllAccHeader2Layout.setVerticalGroup(
 		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -710,7 +729,7 @@ private void contentPanelInit() {
 	model2.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 	model2.setSelected(true); 
 	JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p);
-	JDatePickerImpl lockPeriodDatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
+	lockPeriodDatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
 	lockPeriodDatePicker.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
 	jLabel3.setText("(Only applicable for a fixed deposit account)");
@@ -807,17 +826,17 @@ public JTable getTblTransactions() {
 	return tblTransactions;
 }
 
+public JComboBox<String> getcomboAccountList() {
+	return comboAccountList;
+}
+
 private void btnViewAllAccActionPerformed(java.awt.event.ActionEvent evt) {                                              
 	CardLayout card = (CardLayout)contentPanel.getLayout();
 	card.show(contentPanel, "cardViewAllAccounts");
 	btnAddTransaction.setVisible(true);
 	btnViewAllAcc.setVisible(false);
 	btnViewAllTrans.setVisible(true);
-}                                             
-
-private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-	// TODO add your handling code here:
-}                                          
+}                                                                                    
 
 private void btnAddTransactionActionPerformed(java.awt.event.ActionEvent evt) {                                                  
 	CardLayout card = (CardLayout)contentPanel.getLayout();
@@ -825,7 +844,7 @@ private void btnAddTransactionActionPerformed(java.awt.event.ActionEvent evt) {
 	btnAddTransaction.setVisible(false);
 	btnViewAllAcc.setVisible(true);
 	btnViewAllTrans.setVisible(true);
-}                                                 
+}                       
 
 private void btnViewAllTransActionPerformed(java.awt.event.ActionEvent evt) {                                                
 	CardLayout card2 = (CardLayout)contentPanel.getLayout();
@@ -837,7 +856,7 @@ private void btnViewAllTransActionPerformed(java.awt.event.ActionEvent evt) {
 	btnViewAllTrans.setVisible(false);
 }                                               
 
-private void btnSaveTransactionActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+public void btnSaveTransactionActionPerformed(java.awt.event.ActionEvent evt) {                                                   
 	CardLayout card2 = (CardLayout)contentPanel.getLayout();
 	CardLayout card = (CardLayout)cardViewAllTrans.getLayout();
 	card2.show(contentPanel, "cardViewAllTrans");
@@ -845,7 +864,30 @@ private void btnSaveTransactionActionPerformed(java.awt.event.ActionEvent evt) {
 	btnAddTransaction.setVisible(true);
 	btnViewAllAcc.setVisible(true);
 	btnViewAllTrans.setVisible(false);
-}                                                  
+}
+
+public Transaction getNewTransaction() {
+	String accountName = comboAccountList.getSelectedItem().toString();
+	String type = comboTypeOfTransaction.getSelectedItem().toString();
+	String description = txtFldDescription.getText();
+	Double amount = Double.parseDouble(txtFieldAmount.getText());
+	
+	Date selectedDateUtil = (Date) datePicker.getModel().getValue();
+
+	Instant instant = selectedDateUtil.toInstant();
+	ZoneId zoneId = ZoneId.systemDefault();
+	LocalDate selectedDate = instant.atZone(zoneId).toLocalDate();
+
+	System.out.println(accountName +'\n'+ selectedDate +'\n'+ amount +'\n'+ type +'\n'+ description);
+
+	return new Transaction(accountName, selectedDate, amount, type, description);
+
+	
+}
+
+public Button getBtnSaveTransaction() {
+	return btnSaveTransaction;
+}
 
 private void btnSaveAccountActionPerformed(java.awt.event.ActionEvent evt) {                                               
 	btnViewAllAccActionPerformed(evt);
@@ -859,7 +901,9 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	btnViewAllTrans.setVisible(true);
 }
 
-	// Variables declaration - do not modify                     
+	// Variables declaration - do not modify    
+	private JDatePickerImpl lockPeriodDatePicker; 
+	private JDatePickerImpl datePicker;                
 	private java.awt.Button btnAddNewAcc;
 	private java.awt.Button btnAddTransaction;
 	private java.awt.Button btnLogOut;
@@ -876,8 +920,8 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JPanel contentPanel;
 	private javax.swing.JTextField txtBoxInitialBalance;
 	private javax.swing.JPanel header;
-	private javax.swing.JComboBox<String> jComboBox1;
-	private javax.swing.JComboBox<String> jComboBox2;
+	private javax.swing.JComboBox<String> comboAccountList;
+	private javax.swing.JComboBox<String> comboTypeOfTransaction;
 	private javax.swing.JComboBox<String> jComboBox3;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
@@ -907,7 +951,7 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JScrollPane jScrollPane4;
 	private javax.swing.JSeparator jSeparator1;
 	private javax.swing.JSeparator jSeparator2;
-	private javax.swing.JTextField jTextField1;
+	private javax.swing.JTextField txtFieldAmount;
 	private javax.swing.JTextField jTextField2;
 	private javax.swing.JLabel lblAccName;
 	private javax.swing.JLabel lblTotalAccountBalance;

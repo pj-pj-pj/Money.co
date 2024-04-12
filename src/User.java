@@ -64,11 +64,11 @@ public class User {
 		allAccounts.add(fixedDeposit);
 
 		// Create transactions for each account
-		addTransactions(savings, 5);
-		addTransactions(checking, 3);
-		addTransactions(emergency, 8);
-		addTransactions(vacation, 4);
-		addTransactions(fixedDeposit, 4);
+		addDeposit(savings, 5);
+		addDeposit(checking, 3);
+		addDeposit(emergency, 8);
+		addDeposit(vacation, 4);
+		addDeposit(fixedDeposit, 4);
 
 		addWithdraw(savings, 1);
 		addWithdraw(checking, 1);
@@ -79,7 +79,7 @@ public class User {
 		// Compute total account balance from accounts and transactions (Not implemented here, assuming it is handled elsewhere)
 	}
 
-	private void addTransactions(Account account, int count) {
+	private void addDeposit(Account account, int count) {
 		for (int i = 0; i < count; i++) {
 			account.deposit(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Deposit #" + (i + 1));
 		}
