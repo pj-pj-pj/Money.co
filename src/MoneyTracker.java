@@ -35,14 +35,13 @@ public class MoneyTracker {
 	}
 
 	private void displayTransactions() {
-		String[] columnNames = {"Date", "Account", "Type of Transaction", "Description"};
+		String[] columnNames = {"Date", "Account","Description", "Type of Transaction"};
 		tableModel = new DefaultTableModel(columnNames, 0);
 		ui.getTblTransactions().setModel(tableModel);
     tableModel.setRowCount(0); // Clear existing rows
 
- 
     for (Transaction transaction : user.getTransactionsList()) {
-			Object[] rowData = {transaction.getDate(), transaction.getAccountName(), transaction.getType(), transaction.getDescription()};
+			Object[] rowData = {transaction.getDate(), transaction.getAccountName(), transaction.getDescription(), transaction.getType()};
 			tableModel.addRow(rowData);
     }
     
