@@ -142,13 +142,12 @@ private void sidebarInit() {
 	});
 
 	lblYourTrans.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	lblYourTrans.setText("Your Transactions:");
+	lblYourTrans.setText("Your Latest Transactions:");
 
 	tblTransPreview.setModel(new javax.swing.table.DefaultTableModel(
 		new Object [][] {
 			{null, null},
-			{null, null},
-			{null, null}
+
 		},
 		new String [] {
 			"Transactions", "Amount"
@@ -183,7 +182,7 @@ private void sidebarInit() {
 								.addGap(23, 23, 23))
 							.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
 								.addComponent(lblYourTrans)
-								.addGap(48, 48, 48))
+								.addGap(0, 0, 30))
 							.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
 								.addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addGap(23, 23, 23)))
@@ -195,10 +194,10 @@ private void sidebarInit() {
 			.addGroup(sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
 					.addComponent(jLabel2)
-					.addGap(69, 69, 69))
+					.addGap(0, 45, 70))
 				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarLayout.createSequentialGroup()
 					.addComponent(btnViewAllAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(62, 62, 62))))
+					.addGap(0, 45, 70))))
 	);
 	sidebarLayout.setVerticalGroup(
 		sidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +210,7 @@ private void sidebarInit() {
 			.addComponent(lblTotalAccountBalance)
 			.addGap(10,10,10)
 			.addComponent(btnViewAllAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(27, 27, 27)
+			.addGap(20, 20, 20)
 			.addComponent(lblYourTrans)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			.addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,7 +218,7 @@ private void sidebarInit() {
 			.addComponent(btnViewAllTrans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 			.addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(21, 21, 21))
+			.addGap(50, 50, 50))
 	);
 }
 
@@ -233,6 +232,10 @@ public void setTotalAccBalance(String total) {
 
 public JTable getTblTransPreview() {
 	return tblTransPreview;
+}
+
+public JTable getTblAccList() {
+	return tblAccList;
 }
 
 private void contentPanelInit() {
@@ -272,7 +275,6 @@ private void contentPanelInit() {
 	jLabel24 = new javax.swing.JLabel();
 	jSeparator2 = new javax.swing.JSeparator();
 	jScrollPane4 = new javax.swing.JScrollPane();
-	tblAccList1 = new javax.swing.JTable();
 	cardAddNewAcc = new javax.swing.JPanel();
 	pnlAddAccHeader3 = new javax.swing.JPanel();
 	jLabel25 = new javax.swing.JLabel();
@@ -298,12 +300,9 @@ private void contentPanelInit() {
 	tblTransactions.setModel(new javax.swing.table.DefaultTableModel(
 		new Object [][] {
 			{null, null, null, null},
-			{null, null, null, null},
-			{null, null, null, null},
-			{null, null, null, null}
 		},
 		new String [] {
-			"Date", "Account", "Type of Transaction", "Description"
+			"Date", "Account", "Description", "Type of Transaction"
 		}
 	) {
 		boolean[] canEdit = new boolean [] {
@@ -501,15 +500,6 @@ private void contentPanelInit() {
 	tblAccList.setModel(new javax.swing.table.DefaultTableModel(
 		new Object [][] {
 			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null}
 		},
 		new String [] {
 			"Accounts", "Balance"
@@ -582,33 +572,6 @@ private void contentPanelInit() {
 	jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 	jLabel24.setText("0.0");
 
-	tblAccList1.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	tblAccList1.setModel(new javax.swing.table.DefaultTableModel(
-		new Object [][] {
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null},
-			{null, null}
-		},
-		new String [] {
-			"Accounts", "Balance"
-		}
-	) {
-		boolean[] canEdit = new boolean [] {
-			false, false
-		};
-
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return canEdit [columnIndex];
-		}
-	});
-	jScrollPane4.setViewportView(tblAccList1);
 
 	javax.swing.GroupLayout cardViewAllAccounts1Layout = new javax.swing.GroupLayout(cardViewAllAccounts1);
 	cardViewAllAccounts1.setLayout(cardViewAllAccounts1Layout);
@@ -956,7 +919,6 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JPanel pnlAllAccHeader2;
 	private javax.swing.JPanel sidebar;
 	private javax.swing.JTable tblAccList;
-	private javax.swing.JTable tblAccList1;
 	private javax.swing.JTable tblTransPreview;
 	private javax.swing.JTable tblTransactions;
 	private javax.swing.JTextField txtFldDescription;

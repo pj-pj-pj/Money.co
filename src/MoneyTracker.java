@@ -1,6 +1,5 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
 import javax.swing.table.DefaultTableModel;
 
 public class MoneyTracker {
@@ -17,6 +16,7 @@ public class MoneyTracker {
 		ui.setTotalAccBalance(new DecimalFormat("0.00").format(user.getTotalBalance())); //Convert totalBalance to String
 		displayLatestTransactions();
 		displayTransactions();
+		displayAccounts();
 	}
 
 	private void displayLatestTransactions() {
@@ -44,7 +44,18 @@ public class MoneyTracker {
 			Object[] rowData = {transaction.getDate(), transaction.getAccountName(), transaction.getDescription(), transaction.getType()};
 			tableModel.addRow(rowData);
     }
-    
+	}
+
+	private void displayAccounts() {
+		String[] columnNames = {"Account", "Balance"};
+		tableModel = new DefaultTableModel(columnNames, 0);
+		ui.getTblAccList().setModel(tableModel);
+    tableModel.setRowCount(0); // Clear existing rows
+
+    for (Account account : user.getAccounts()) {
+			Object[] rowData = {account.getAccountName(), new DecimalFormat("0.00").format(account.getBalance())};
+			tableModel.addRow(rowData);
+    }
 	}
 
 	public boolean logInSuccessful() {

@@ -10,8 +10,9 @@ public class Account {
 	private Transactor transactor;
 	protected ArrayList<Transaction> transactions = new ArrayList<>();
 
-	public Account(String accountName) {
+	public Account(String accountName, double balance) {
 		this.accountName = accountName;
+		this.balance = balance;
 		this.transactor = new DefaultTransactor();
 	}
 

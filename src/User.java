@@ -50,11 +50,11 @@ public class User {
 
 	private void initializeDummyData() {
 		// Create some accounts
-		Account savings = new Account("Savings Account");
-		Account checking = new Account("Checking Account");
-		Account emergency = new Account("Emergency Fund");
-		Account vacation = new Account("Vacation Fund");
-		FixedDepositAccount fixedDeposit = new FixedDepositAccount("Fixed Deposit", 12); // 12 months lock-in
+		Account savings = new Account("Savings Account", 0);
+		Account checking = new Account("Checking Account", 0);
+		Account emergency = new Account("Emergency Fund", 0);
+		Account vacation = new Account("Vacation Fund", 0);
+		FixedDepositAccount fixedDeposit = new FixedDepositAccount("Fixed Deposit",0, 12); // 12 months lock-in
 
 		// Add accounts to allAccounts list
 		allAccounts.add(savings);
