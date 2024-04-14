@@ -1,4 +1,6 @@
+import java.time.LocalDate;
+
 public interface Transactor {
-    public abstract double increment(Account account, double amount);
-    public abstract double decrement(Account account, double amount);
+    public abstract double recordIncome(Account account, LocalDate date, double amount, String description);
+    public abstract double recordExpense(Account account, LocalDate date, double amount, String description);
 }

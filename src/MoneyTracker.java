@@ -168,9 +168,9 @@ public class MoneyTracker {
 				for (Account account : user.getAccounts()) {
 					if (newTransaction.getAccountName().equals(account.getAccountName())) {
 						if (newTransaction.getType().equalsIgnoreCase("income")) {
-							account.deposit(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+							account.addIncome(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
 						} else {
-							account.withdraw(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+							account.addExpense(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
 						}
 					}
 				}

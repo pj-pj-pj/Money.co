@@ -73,13 +73,13 @@ public class User {
 
 	private void addDeposit(Account account, int count) {
 		for (int i = 0; i < count; i++) {
-			account.deposit(account.getCurrentDate().minusDays(count - i), 100, "Deposit #" + (i + 1));
+			account.addIncome(account.getCurrentDate().minusDays(count - i), 100, "Deposit #" + (i + 1));
 		}
 	}
 
 	private void addWithdraw(Account account, int count) {
 		for (int i = 0; i < count; i++) {
-			account.withdraw(account.getCurrentDate().minusDays(count - i), 10, "Withdraw #" + (i + 1));
+			account.addExpense(account.getCurrentDate().minusDays(count - i), 10, "Withdraw #" + (i + 1));
     }
 	}
 
