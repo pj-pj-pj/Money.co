@@ -41,7 +41,6 @@ public class MoneyTracker {
 				if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 					int row = ui.getTblTransactions().getSelectedRow();
 					handleDeleteTransaction(row);
-					
 				}
 			}
 		});
@@ -62,7 +61,7 @@ public class MoneyTracker {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (e.getClickCount() == 2) {
-						System.out.println();
+					// show accounts transactions individually MAYBE, NEED TO MAKE NEW CARD T-T
 				}
 			}});
 	}
@@ -118,16 +117,15 @@ public class MoneyTracker {
 	}
 
 	private void handleDeleteTransaction(int row) {
-		System.out.println("Deleting row at index: " + row);
 		Transaction transaction = user.getTransactionsList().get(row);
 		int index = transaction.getIndex();
 		
 		for (Account acc : user.getAccounts()) {
 			if (transaction.getAccountName().equalsIgnoreCase(acc.getAccountName()) && transaction.getIndex() == index) {
-				System.out.println(transaction.getIndex() == index);
 				acc.getTransactions().remove(transaction);
 			}
 		}
+
 		reload();
 	}
 
@@ -188,6 +186,7 @@ public class MoneyTracker {
 				ui.btnSaveAccountActionPerformed(evt);
 				Account newAccount = ui.getNewAccount();
 				user.getAccounts().add(newAccount);
+				user.printUserData();
 				reload();
 			}
 		});

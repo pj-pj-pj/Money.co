@@ -7,45 +7,44 @@ public class Account {
 	private LocalDate currentDate = LocalDate.now();
 	private String accountName = "Account";
 	private double balance;
+	private double recordedBalance;
 	private Transactor transactor;
 	protected ArrayList<Transaction> transactions = new ArrayList<>();
 
-	public Account(String accountName, double balance) {
+	public Account(String accountName, double recordedBalance) {
 		this.accountName = accountName;
-		this.balance = balance;
+		this.recordedBalance = recordedBalance;
 		this.transactor = new DefaultTransactor();
 	}
 
-    // Getters
+  // Getters
 	public double getBalance() {
-		double totalBalance = balance; // Start with the initial balance
+		double income = 0;
+		double expenses = 0;
 
 		for (Transaction transaction : getTransactions()) {
-				totalBalance += transaction.getAmount();
+			if (transaction.getType().equalsIgnoreCase("Deposit")) {
+				income += transaction.getAmount();
+			} else if (transaction.getType().equalsIgnoreCase("Withdraw")) {
+				expenses += transaction.getAmount();
+			}
 		}
 
-		return totalBalance;
+		return recordedBalance + (income + expenses);
 	}
+
 
 	public LocalDate getCurrentDate() {
 		return currentDate;
 	}
 
 	public ArrayList<Transaction> getTransactions() {
-    ArrayList<Transaction> tempList = new ArrayList<>();
-    tempList.addAll(transactions);
-
-    Collections.sort(tempList, Comparator.comparing(Transaction::getDate).reversed());
-		transactions = tempList;
+    Collections.sort(transactions, Comparator.comparing(Transaction::getDate).reversed());
     return transactions;
 	}
 
 	public String getAccountName() {
 		return accountName;
-	}
-
-	public void setaccountName(String accountName) {
-		this.accountName = accountName;
 	}
 
 	// Use Transactor for deposit and withdraw methods
@@ -79,6 +78,12 @@ public class Account {
     Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw", description);
 		transactions.add(withdrawTransaction);
 		withdrawTransaction.setIndex(transactions.indexOf(withdrawTransaction));
+	}
+
+	// Setters
+
+	public void setaccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	public void setBalance(double d) {

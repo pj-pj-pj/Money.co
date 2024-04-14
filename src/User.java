@@ -28,21 +28,11 @@ public class User {
     System.out.println("Password: " + password);
     System.out.println("Accounts and Transactions:");
 
+		System.out.println();
     for (Account account : allAccounts) {
 			System.out.println("  Account Name: " + account.getAccountName());
-			System.out.println("  Transactions:");
-			List<Transaction> accountTransactions = account.getTransactions(); // Get account transactions
-
-			for (Transaction transaction : accountTransactions) {
-				System.out.printf("    Date: %s, Amount: %.2f, Type: %s, Description: %s, \n",
-				transaction.getDate(), transaction.getAmount(), transaction.getType(), transaction.getDescription());
-			}
-    }
-
-    System.out.println("\nAll Transactions:");
-    for (Transaction transaction : getTransactionsList()) {
-			System.out.printf("   Account name: %s, Date: %s, Amount: %.2f, Type: %s, Description: %s\n",
-			transaction.getAccountName(), transaction.getDate(), transaction.getAmount(), transaction.getType(), transaction.getDescription());
+			System.out.println("  Account Balance: " + account.getBalance());
+			System.out.println();
     }
 
 		System.out.println("Balance: " + getTotalBalance());
@@ -66,30 +56,30 @@ public class User {
 		allAccounts.add(fixedDeposit);
 
 		// Create transactions for each account
-		addDeposit(savings, 5);
-		addDeposit(checking, 3);
-		addDeposit(emergency, 8);
-		addDeposit(vacation, 4);
-		addDeposit(fixedDeposit, 4);
+		addDeposit(savings, 2);
+		addDeposit(checking, 2);
+		addDeposit(emergency, 2);
+		addDeposit(vacation, 2);
+		addDeposit(fixedDeposit, 2); // 100
 
 		addWithdraw(savings, 1);
 		addWithdraw(checking, 1);
-		addWithdraw(emergency, 2);
-		addWithdraw(vacation, 3);
-		addWithdraw(fixedDeposit, 3);
+		addWithdraw(emergency, 1);
+		addWithdraw(vacation, 1);
+		addWithdraw(fixedDeposit, 1); //40
 
 		// Compute total account balance from accounts and transactions (Not implemented here, assuming it is handled elsewhere)
 	}
 
 	private void addDeposit(Account account, int count) {
 		for (int i = 0; i < count; i++) {
-			account.deposit(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Deposit #" + (i + 1));
+			account.deposit(account.getCurrentDate().minusDays(count - i), 100, "Deposit #" + (i + 1));
 		}
 	}
 
 	private void addWithdraw(Account account, int count) {
 		for (int i = 0; i < count; i++) {
-			account.withdraw(account.getCurrentDate().minusDays(count - i), 303.26 * (i + 1), "Withdraw #" + (i + 1));
+			account.withdraw(account.getCurrentDate().minusDays(count - i), 10, "Withdraw #" + (i + 1));
     }
 	}
 
@@ -139,7 +129,7 @@ public class User {
     for (Account account : allAccounts) {
       totalBalance += account.getBalance();
     }
-
+    
     return totalBalance;
 	}
 
