@@ -7,15 +7,17 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 public class MoneyTracker {
-	private UI ui = new UI();
-	private User user = new User();
+	private LogInUI login = new LogInUI();
+	private SignUpUI signup;
+	private MainUI ui;
+	private User user;
 	private DefaultTableModel tableModel;
 
 	public void init() {
-		setup();
+		setupLoginUI();
 	}
 
-	private void setup() {
+	private void setupMainUI() {
 		String balance = new DecimalFormat("0.00").format(user.getTotalBalance());
 		String income = new DecimalFormat("0.00").format(user.getIncome());
 		String expense = new DecimalFormat("0.00").format(user.getExpenses());
@@ -57,6 +59,14 @@ public class MoneyTracker {
 					int row = ui.getTblAccList().getSelectedRow();
 					handleDeleteAccount(row);
 				}
+			}
+		});
+
+		// log out
+		ui.getLogOutBtn().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				ui.dispose();
+				login.setVisible(true);
 			}
 		});
 
@@ -200,7 +210,64 @@ public class MoneyTracker {
 		});
 	}
 
+	private void setupLoginUI() {
+		login.getBtnTestAccount().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				login.dispose();
+				user = new User();
+				ui = new MainUI();
+				setupMainUI();
+			}
+		});
+
+		login.getBtnSignup().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				login.dispose();
+				signup = new SignUpUI();
+				setupSignupUI();
+				signup.setVisible(true);
+			}
+		});
+
+		// login.getBtnLogin().addActionListener(new java.awt.event.ActionListener() {
+		// 	public void actionPerformed(java.awt.event.ActionEvent evt) {
+		// 		login.dispose();
+		// 		user = new User(Account);
+		// 		ui = new MainUI();
+		// 		setupMainUI();
+		// 	}
+		// });
+	}
+
+	private void setupSignupUI() {
+		signup.getBtnTestAccount().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				signup.dispose();
+				user = new User();
+				ui = new MainUI();
+				setupMainUI();
+			}
+		});
+
+		// signup.getBtnSignup().addActionListener(new java.awt.event.ActionListener() {
+		// 	public void actionPerformed(java.awt.event.ActionEvent evt) {
+		// 		login.dispose();
+		// 		signup = new SignUpUI();
+		// 		signup.setVisible(true);
+		// 	}
+		// });
+
+		signup.getBtnLogin().addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				signup.dispose();
+				login.setVisible(true);
+				setupLoginUI();
+			}
+		});
+	}
+
 	public boolean logInSuccessful() {
 		return true;
 	}
+
 }

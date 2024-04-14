@@ -15,9 +15,9 @@ import javax.swing.JTable;
 import org.jdatepicker.impl.*; 
 import java.awt.*;  
 
-public class UI extends javax.swing.JFrame {
+public class MainUI extends javax.swing.JFrame {
 
-	public UI() {
+	public MainUI() {
 		initComponents();
 	}
 
@@ -35,9 +35,9 @@ public class UI extends javax.swing.JFrame {
 		contentPanelInit();
 
 		pack();
-		setVisible(true);
 		setSize(1300, 850);
 		setLocationRelativeTo(null);
+		setVisible(true);	
 	}            
 
 	private void headerInit() {
@@ -920,6 +920,10 @@ public class UI extends javax.swing.JFrame {
 		model2.setDate(calendar.get(Calendar.YEAR) + 5, calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 	}
 
+	public Button getLogOutBtn() {
+		return btnLogOut;
+	}
+
 		// Variables declaration - do not modify    
 		private JDatePickerImpl lockPeriodDatePicker; 
 		private JDatePickerImpl datePicker;                
@@ -984,8 +988,5 @@ public class UI extends javax.swing.JFrame {
 		private UtilDateModel model2 = new UtilDateModel();
 		private UtilDateModel model = new UtilDateModel();
 		private Calendar calendar = Calendar.getInstance();
-
-
-
 	// End of variables declaration                   
 }
