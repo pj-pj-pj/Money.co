@@ -16,8 +16,12 @@ public class MoneyTracker {
 	}
 
 	private void setup() {
+		String balance = new DecimalFormat("0.00").format(user.getTotalBalance());
+		String income = new DecimalFormat("0.00").format(user.getIncome());
+		String expense = new DecimalFormat("0.00").format(user.getExpenses());
+
 		ui.setAccountName(user.getName());
-		ui.setTotalAccBalance(new DecimalFormat("0.00").format(user.getTotalBalance())); //Convert totalBalance to String
+		ui.setTotalAccBalance(balance, income, expense); //Convert totalBalance to String
 
 		//display info on tables
 		displayLatestTransactions();
@@ -67,7 +71,11 @@ public class MoneyTracker {
 	}
 
 	private void reload() {
-		ui.setTotalAccBalance(new DecimalFormat("0.00").format(user.getTotalBalance())); //Convert totalBalance to String with format 0.00
+		String balance = new DecimalFormat("0.00").format(user.getTotalBalance());
+		String income = new DecimalFormat("0.00").format(user.getIncome());
+		String expense = new DecimalFormat("0.00").format(user.getExpenses());
+		
+		ui.setTotalAccBalance(balance, income, expense);
 
 		//display info on tables
 		displayLatestTransactions();

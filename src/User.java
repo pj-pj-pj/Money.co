@@ -87,7 +87,7 @@ public class User {
 		this.allAccounts = new ArrayList<>();
 		this.allTransactionsList = new ArrayList<>();
 		this.name = name;
-		this.password = password;  // Updated for realistic testing
+		this.password = password;
 	}
 
 	public String getName() {

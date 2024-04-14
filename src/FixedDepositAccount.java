@@ -14,6 +14,15 @@ public class FixedDepositAccount extends Account {
 	public void addExpense(LocalDate date, double amount, String description) {
 		transactor.recordExpense(this, date, amount, description);
 	}
+
+	@Override
+	public String getAccountName() {
+		if (calculateIfLockInPeriodOver(getCurrentDate())) {
+			return super.getAccountName();
+		}
+
+		return super.getAccountName() + " (locked)";
+	}
 	
 	public boolean calculateIfLockInPeriodOver(LocalDate date) {
 		return date.isAfter(lockInPeriod);
