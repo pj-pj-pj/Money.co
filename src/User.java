@@ -1,10 +1,12 @@
+import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class User {
-	private ArrayList<Account> allAccounts;
-	private ArrayList<Transaction> allTransactionsList;
+	private List<Account> allAccounts;
+	private List<Transaction> allTransactionsList;
 	private String name;
 	private String password;
 	private double income;
@@ -21,7 +23,7 @@ public class User {
 		printUserData();
 	}
 
-	private void printUserData() {
+	public void printUserData() {
     System.out.println("User Name: " + name);
     System.out.println("Password: " + password);
     System.out.println("Accounts and Transactions:");
@@ -29,10 +31,10 @@ public class User {
     for (Account account : allAccounts) {
 			System.out.println("  Account Name: " + account.getAccountName());
 			System.out.println("  Transactions:");
-			ArrayList<Transaction> accountTransactions = account.getTransactions(); // Get account transactions
+			List<Transaction> accountTransactions = account.getTransactions(); // Get account transactions
 
 			for (Transaction transaction : accountTransactions) {
-				System.out.printf("    Date: %s, Amount: %.2f, Type: %s, Description: %s\n",
+				System.out.printf("    Date: %s, Amount: %.2f, Type: %s, Description: %s, \n",
 				transaction.getDate(), transaction.getAmount(), transaction.getType(), transaction.getDescription());
 			}
     }
@@ -54,7 +56,7 @@ public class User {
 		Account checking = new Account("Checking Account", 0);
 		Account emergency = new Account("Emergency Fund", 0);
 		Account vacation = new Account("Vacation Fund", 0);
-		FixedDepositAccount fixedDeposit = new FixedDepositAccount("Fixed Deposit",0, 12); // 12 months lock-in
+		FixedDepositAccount fixedDeposit = new FixedDepositAccount("Fixed Deposit",0, LocalDate.of(2024, 4, 16)); // 12 months lock-in
 
 		// Add accounts to allAccounts list
 		allAccounts.add(savings);
@@ -110,14 +112,14 @@ public class User {
 		allAccounts.add(account);
 	}
 
-	public ArrayList<Account> getAccounts() {
+	public List<Account> getAccounts() {
 		return allAccounts;
 	}
 
 	private void updateAllTransactionsList() {
     allTransactionsList.clear();
 
-		ArrayList<Transaction> tempList = new ArrayList<>();
+		List<Transaction> tempList = new ArrayList<>();
     for (Account account : allAccounts) {
 			tempList.addAll(account.getTransactions());
 		}
@@ -125,7 +127,7 @@ public class User {
 		allTransactionsList.addAll(tempList);
 	}
 
-	public ArrayList<Transaction> getTransactionsList() {
+	public List<Transaction> getTransactionsList() {
 		// Update the allTransactionsList before returning
 		updateAllTransactionsList();
 		return allTransactionsList;
@@ -139,7 +141,7 @@ public class User {
     }
 
     return totalBalance;
-}
+	}
 
 	public double getIncome() {
 		// Calculate total income from all accounts

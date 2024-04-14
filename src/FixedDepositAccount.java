@@ -1,15 +1,13 @@
 import java.time.LocalDate;
 
 public class FixedDepositAccount extends Account {
-	private LocalDate startDate;
-	private int lockInPeriodMonths;
+	private LocalDate lockInPeriod;
 	private boolean isLockInPeriodOver;
 	private FixedDepositTransactor transactor;
 
-	public FixedDepositAccount(String accountName, double balance, int lockInPeriodMonths) {
+	public FixedDepositAccount(String accountName, double balance, LocalDate lockInPeriod) {
 		super(accountName, balance);
-		this.lockInPeriodMonths = lockInPeriodMonths;
-		this.startDate = LocalDate.now(); // Setting the start date to the current date
+		this.lockInPeriod = lockInPeriod;
 		this.transactor = new FixedDepositTransactor();
 		this.isLockInPeriodOver = calculateIfLockInPeriodOver();
 	}
@@ -20,6 +18,7 @@ public class FixedDepositAccount extends Account {
 		if (isLockInPeriodOver) {
 			Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw", description);
 			transactions.add(withdrawTransaction);
+			withdrawTransaction.setIndex(transactions.indexOf(withdrawTransaction));
 		}
 	}
 
@@ -28,13 +27,11 @@ public class FixedDepositAccount extends Account {
 		if (isLockInPeriodOver) {
 			Transaction withdrawTransaction = new Transaction(this.getAccountName(), date, Math.abs(amount) * -1, "Withdraw");
 			transactions.add(withdrawTransaction);
+			withdrawTransaction.setIndex(transactions.indexOf(withdrawTransaction));
 		}
 	}
 	
 	private boolean calculateIfLockInPeriodOver() {
-		LocalDate currentDate = LocalDate.now();
-		LocalDate endDate = startDate.plusMonths(lockInPeriodMonths);
-		
-		return currentDate.isAfter(endDate); // true if the current date is after the end of the lock-in period
-	}
+		return getCurrentDate().isAfter(lockInPeriod);
+}
 }

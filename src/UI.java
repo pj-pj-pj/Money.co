@@ -1,7 +1,7 @@
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.text.NumberFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -10,9 +10,7 @@ import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTable;
-import javax.swing.text.NumberFormatter;
 
 import org.jdatepicker.impl.*; 
 import java.awt.*;  
@@ -36,10 +34,9 @@ private void initComponents() {
 	contentPanelInit();
 
 	pack();
-	setLocationRelativeTo(null);
 	setVisible(true);
-	setSize(1013, 570);
-	setResizable(false);
+	setSize(1500, 800);
+	setLocationRelativeTo(null);
 }            
 
 private void headerInit() {
@@ -163,15 +160,7 @@ private void sidebarInit() {
 		new String [] {
 			"Transactions", "Amount"
 		}
-	) {
-		boolean[] canEdit = new boolean [] {
-			false, false
-		};
-
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return canEdit [columnIndex];
-		}
-	});
+	));
 	jScrollPane3.setViewportView(tblTransPreview);
 
 	javax.swing.GroupLayout sidebarLayout = new javax.swing.GroupLayout(sidebar);
@@ -255,11 +244,11 @@ private void contentPanelInit() {
 	cardMonth = new javax.swing.JPanel();
 	jScrollPane2 = new javax.swing.JScrollPane();
 	tblTransactions = new javax.swing.JTable();
-	pnlAllAccHeader1 = new javax.swing.JPanel();
-	jLabel18 = new javax.swing.JLabel();
+	pnlAllTransactionsHeader = new javax.swing.JPanel();
+	lblTransactionHeaderTitle = new javax.swing.JLabel();
 	cardAddTransaction = new javax.swing.JPanel();
 	pnlAddTransHeader = new javax.swing.JPanel();
-	jLabel4 = new javax.swing.JLabel();
+	lblAddTransactionTitle = new javax.swing.JLabel();
 	jLabel6 = new javax.swing.JLabel();
 	txtFieldAmount = new javax.swing.JTextField();
 	jLabel8 = new javax.swing.JLabel();
@@ -271,12 +260,11 @@ private void contentPanelInit() {
 	btnSaveTransaction = new java.awt.Button();
 	txtFldDescription = new javax.swing.JTextField();
 	cardViewAllAccounts = new javax.swing.JPanel();
-	jSeparator1 = new javax.swing.JSeparator();
 	jScrollPane1 = new javax.swing.JScrollPane();
 	tblAccList = new javax.swing.JTable();
 	cardViewAllAccounts1 = new javax.swing.JPanel();
 	pnlAllAccHeader2 = new javax.swing.JPanel();
-	jLabel17 = new javax.swing.JLabel();
+	lblViewAccHeaderTitle = new javax.swing.JLabel();
 	btnAddNewAcc = new java.awt.Button();
 	jLabel19 = new javax.swing.JLabel();
 	jLabel20 = new javax.swing.JLabel();
@@ -284,70 +272,61 @@ private void contentPanelInit() {
 	jLabel22 = new javax.swing.JLabel();
 	jLabel23 = new javax.swing.JLabel();
 	jLabel24 = new javax.swing.JLabel();
-	jSeparator2 = new javax.swing.JSeparator();
-	jScrollPane4 = new javax.swing.JScrollPane();
 	cardAddNewAcc = new javax.swing.JPanel();
 	pnlAddAccHeader3 = new javax.swing.JPanel();
 	jLabel25 = new javax.swing.JLabel();
 	jLabel26 = new javax.swing.JLabel();
-	jTextField2 = new javax.swing.JTextField();
+	txtFldAccName = new javax.swing.JTextField();
 	jLabel27 = new javax.swing.JLabel();
-	jComboBox3 = new javax.swing.JComboBox<>();
-	jLabel30 = new javax.swing.JLabel();
-	jLabel3 = new javax.swing.JLabel();
+	comboAccType = new javax.swing.JComboBox<>();
+	lblAddAccType = new javax.swing.JLabel();
+	lblForFixedInfo = new javax.swing.JLabel();
 	txtBoxInitialBalance = new javax.swing.JTextField();
 	btnSaveAccount = new java.awt.Button();
-	jLabel31 = new javax.swing.JLabel();
+	lblLockAccUntil = new javax.swing.JLabel();
 	Calendar calendar = Calendar.getInstance();
 
 	contentPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 	contentPanel.setLayout(new java.awt.CardLayout());
-
-	cardViewAllTrans.setPreferredSize(new java.awt.Dimension(655, 68));
+	contentPanel.setPreferredSize(getPreferredSize());
 	cardViewAllTrans.setLayout(new java.awt.CardLayout());
 
 	cardMonth.setBackground(new java.awt.Color(237, 236, 233));
 
+	tblTransactions.setFont(new java.awt.Font("Poppins", 0, 12)); 
+	tblTransactions.setRowHeight(22);
+	tblTransactions.getTableHeader().setFont(new Font("Poppins", 0, 12));
+	tblTransactions.getTableHeader().setPreferredSize(new Dimension(header.getWidth(), 43));
 	tblTransactions.setModel(new javax.swing.table.DefaultTableModel(
-		new Object [][] {
-			{null, null, null, null},
-		},
+		new Object [][] {},
 		new String [] {
-			"Date", "Account", "Description", "Type of Transaction"
+			"Date", "Account","Description", "Type of Transaction", "Amount"
 		}
-	) {
-		boolean[] canEdit = new boolean [] {
-			false, false, false, false
-		};
-
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return canEdit [columnIndex];
-		}
-	});
+	));
 	jScrollPane2.setViewportView(tblTransactions);
 
-	pnlAllAccHeader1.setBackground(new java.awt.Color(0, 0, 0));
-	pnlAllAccHeader1.setPreferredSize(new java.awt.Dimension(655, 68));
-	jLabel18.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-	jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel18.setText("{ACCOUNT NAME}'S TRANSACTIONS");
+	pnlAllTransactionsHeader.setBackground(new java.awt.Color(0, 0, 0));
+	pnlAllTransactionsHeader.setPreferredSize(new java.awt.Dimension(655, 68));
+	lblTransactionHeaderTitle.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblTransactionHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
+	lblTransactionHeaderTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	lblTransactionHeaderTitle.setText("{ACCOUNT NAME}'S TRANSACTIONS");
 
-	javax.swing.GroupLayout pnlAllAccHeader1Layout = new javax.swing.GroupLayout(pnlAllAccHeader1);
-	pnlAllAccHeader1.setLayout(pnlAllAccHeader1Layout);
-	pnlAllAccHeader1Layout.setHorizontalGroup(
-		pnlAllAccHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(pnlAllAccHeader1Layout.createSequentialGroup()
+	javax.swing.GroupLayout pnlAllTransactionsHeaderLayout = new javax.swing.GroupLayout(pnlAllTransactionsHeader);
+	pnlAllTransactionsHeader.setLayout(pnlAllTransactionsHeaderLayout);
+	pnlAllTransactionsHeaderLayout.setHorizontalGroup(
+		pnlAllTransactionsHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		.addGroup(pnlAllTransactionsHeaderLayout.createSequentialGroup()
 			.addGap(16, 16, 16)
-			.addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addComponent(lblTransactionHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	);
-	pnlAllAccHeader1Layout.setVerticalGroup(
-		pnlAllAccHeader1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(pnlAllAccHeader1Layout.createSequentialGroup()
+	pnlAllTransactionsHeaderLayout.setVerticalGroup(
+		pnlAllTransactionsHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		.addGroup(pnlAllTransactionsHeaderLayout.createSequentialGroup()
 			.addGap(23, 23, 23)
-			.addComponent(jLabel18)
-			.addContainerGap(23, Short.MAX_VALUE))
+			.addComponent(lblTransactionHeaderTitle)
+			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 	);
 
 	javax.swing.GroupLayout cardMonthLayout = new javax.swing.GroupLayout(cardMonth);
@@ -355,19 +334,18 @@ private void contentPanelInit() {
 	cardMonthLayout.setHorizontalGroup(
 		cardMonthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(cardMonthLayout.createSequentialGroup()
-			.addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 649, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(0, 0, Short.MAX_VALUE))
+			.addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			)
 		.addGroup(cardMonthLayout.createSequentialGroup()
-			.addComponent(pnlAllAccHeader1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-			.addContainerGap())
+			.addComponent(pnlAllTransactionsHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			)
 	);
 	cardMonthLayout.setVerticalGroup(
 		cardMonthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(cardMonthLayout.createSequentialGroup()
-			.addComponent(pnlAllAccHeader1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-			.addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 395, Short.MAX_VALUE)
-			.addContainerGap())
+			.addComponent(pnlAllTransactionsHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			)
 	);
 
 	cardViewAllTrans.add(cardMonth, "cardMonth");
@@ -376,10 +354,10 @@ private void contentPanelInit() {
 
 	pnlAddTransHeader.setBackground(new java.awt.Color(0, 0, 0));
 
-	jLabel4.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-	jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel4.setText("ADD TRANSACTION");
+	lblAddTransactionTitle.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblAddTransactionTitle.setForeground(new java.awt.Color(255, 255, 255));
+	lblAddTransactionTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	lblAddTransactionTitle.setText("ADD TRANSACTION");
 
 	javax.swing.GroupLayout pnlAddTransHeaderLayout = new javax.swing.GroupLayout(pnlAddTransHeader);
 	pnlAddTransHeader.setLayout(pnlAddTransHeaderLayout);
@@ -387,14 +365,13 @@ private void contentPanelInit() {
 		pnlAddTransHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(pnlAddTransHeaderLayout.createSequentialGroup()
 			.addGap(16, 16, 16)
-			.addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+			.addComponent(lblAddTransactionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 	);
 	pnlAddTransHeaderLayout.setVerticalGroup(
 		pnlAddTransHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(pnlAddTransHeaderLayout.createSequentialGroup()
 			.addGap(23, 23, 23)
-			.addComponent(jLabel4)
+			.addComponent(lblAddTransactionTitle)
 			.addContainerGap(23, Short.MAX_VALUE))
 	);
 
@@ -463,17 +440,17 @@ private void contentPanelInit() {
 	cardAddTransaction.setLayout(cardAddTransactionLayout);
 	cardAddTransactionLayout.setHorizontalGroup(
 		cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addComponent(pnlAddTransHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+		.addComponent(pnlAddTransHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		.addGroup(cardAddTransactionLayout.createSequentialGroup()
-			.addGap(93, 93, 93)
+			.addGap(152, 152, 152)
 			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(jLabel6)
 				.addComponent(jLabel11)
 				.addComponent(jLabel9)
 				.addComponent(jLabel8)
 				.addComponent(jLabel10))
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+			.addGroup(cardAddTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(cardAddTransactionLayout.createSequentialGroup()
 					.addGap(217, 217, 217)
 					.addComponent(btnSaveTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -515,7 +492,10 @@ private void contentPanelInit() {
 
 	contentPanel.add(cardAddTransaction, "cardAddTransaction");
 
-	tblAccList.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	tblAccList.setFont(new java.awt.Font("Poppins", 0, 13)); 
+	tblAccList.getTableHeader().setPreferredSize(new Dimension(header.getWidth(), 43));
+	tblAccList.getTableHeader().setFont(new Font("Poppins", 0, 12));
+	tblAccList.setRowHeight(34);
 	tblAccList.setModel(new javax.swing.table.DefaultTableModel(
 		new Object [][] {
 			{null, null},
@@ -523,23 +503,15 @@ private void contentPanelInit() {
 		new String [] {
 			"Accounts", "Balance"
 		}
-	) {
-		boolean[] canEdit = new boolean [] {
-			false, false
-		};
-
-		public boolean isCellEditable(int rowIndex, int columnIndex) {
-			return canEdit [columnIndex];
-		}
-	});
+	));
 	jScrollPane1.setViewportView(tblAccList);
 
 	pnlAllAccHeader2.setBackground(new java.awt.Color(0, 0, 0));
 
-	jLabel17.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-	jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel17.setText("{ACCOUNT NAME}'S ACCOUNTS");
+	lblViewAccHeaderTitle.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblViewAccHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
+	lblViewAccHeaderTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	lblViewAccHeaderTitle.setText("{ACCOUNT NAME}'S ACCOUNTS");
 
 	btnAddNewAcc.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
 	btnAddNewAcc.setLabel("+ ADD NEW ACCOUNT");
@@ -554,120 +526,94 @@ private void contentPanelInit() {
 	pnlAllAccHeader2Layout.setHorizontalGroup(
 		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
-			.addGap(16, 16, 16)
-			.addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+		.addGap(16, 16, 16)
+			.addComponent(lblViewAccHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 			.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(27, 27, 50))
+			.addGap(25, 25, 25))
 	);
 	pnlAllAccHeader2Layout.setVerticalGroup(
 		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
-			.addGap(18, 18, 18)
-			.addGroup(pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+		.addGap(23, 23, 23)
+		.addGroup(pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 				.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addComponent(jLabel17))
+				.addComponent(lblViewAccHeaderTitle))
 			.addContainerGap(23, Short.MAX_VALUE))
 	);
 
-	jLabel19.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel19.setText("Liabilities");
+	jLabel22.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("INCOME");
 
-	jLabel20.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel20.setText("0.0");
+        jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("EXPENSES");
 
-	jLabel21.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel21.setText("Total");
+        jLabel21.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("TOTAL");
 
-	jLabel22.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel22.setText("Assets");
+        jLabel24.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("0.0");
 
-	jLabel23.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel23.setText("0.0");
+        jLabel23.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("0.0");
 
-	jLabel24.setFont(new java.awt.Font("Poppins", 0, 16)); // NOI18N
-	jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	jLabel24.setText("0.0");
+        jLabel20.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("0.0");
 
-
-	javax.swing.GroupLayout cardViewAllAccounts1Layout = new javax.swing.GroupLayout(cardViewAllAccounts1);
-	cardViewAllAccounts1.setLayout(cardViewAllAccounts1Layout);
-	cardViewAllAccounts1Layout.setHorizontalGroup(
-		cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-		.addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
-		.addGroup(cardViewAllAccounts1Layout.createSequentialGroup()
-			.addContainerGap()
-			.addGroup(cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(cardViewAllAccounts1Layout.createSequentialGroup()
-					.addGap(48, 48, 48)
-					.addComponent(jLabel22)
+				javax.swing.GroupLayout cardViewAllAccountsLayout = new javax.swing.GroupLayout(cardViewAllAccounts);
+        cardViewAllAccounts.setLayout(cardViewAllAccountsLayout);
+        cardViewAllAccountsLayout.setHorizontalGroup(
+					cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
 					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jLabel19)
-					.addGap(156, 156, 156)
-					.addComponent(jLabel21)
-					.addGap(95, 95, 95))
-				.addGroup(cardViewAllAccounts1Layout.createSequentialGroup()
-					.addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(88, 88, 88)
-					.addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(36, 36, 36))))
-		.addGroup(cardViewAllAccounts1Layout.createSequentialGroup()
-			.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(0, 0, Short.MAX_VALUE))
-	);
-	cardViewAllAccounts1Layout.setVerticalGroup(
-		cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(cardViewAllAccounts1Layout.createSequentialGroup()
-			.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-			.addGroup(cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-				.addComponent(jLabel19)
-				.addComponent(jLabel21)
-				.addComponent(jLabel22))
-			.addGap(0, 0, 0)
-			.addGroup(cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(cardViewAllAccounts1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-					.addComponent(jLabel20)
-					.addComponent(jLabel24))
-				.addComponent(jLabel23, javax.swing.GroupLayout.Alignment.TRAILING))
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-			.addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-			.addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(66, 66, 66))
-	);
-
-	javax.swing.GroupLayout cardViewAllAccountsLayout = new javax.swing.GroupLayout(cardViewAllAccounts);
-	cardViewAllAccounts.setLayout(cardViewAllAccountsLayout);
-	cardViewAllAccountsLayout.setHorizontalGroup(
-		cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-		.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-			.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(0, 0, Short.MAX_VALUE))
-		.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-				.addComponent(cardViewAllAccounts1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addGap(0, 9, Short.MAX_VALUE)))
-	);
-	cardViewAllAccountsLayout.setVerticalGroup(
-		cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-			.addGap(136, 136, 136)
-			.addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-			.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(66, 66, 66))
-		.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-			.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-				.addComponent(cardViewAllAccounts1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addGap(0, 60, Short.MAX_VALUE)))
-	);
+					.addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+					.addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addGap(0, 0, Short.MAX_VALUE))
+					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addGap(0, 0, Short.MAX_VALUE))
+        );
+				cardViewAllAccountsLayout.setVerticalGroup(
+					cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+					.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+						.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+							.addComponent(jLabel22)
+							.addComponent(jLabel19)
+							.addComponent(jLabel21))
+						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+							.addComponent(jLabel23)
+							.addComponent(jLabel24)
+							.addComponent(jLabel20))
+						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+							.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+								.addGap(12, 12, 12)
+								.addContainerGap(323, Short.MAX_VALUE))
+							.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+								.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
+								.addContainerGap())))
+			);
 
 	contentPanel.add(cardViewAllAccounts, "cardViewAllAccounts");
 
@@ -698,17 +644,32 @@ private void contentPanelInit() {
 	jLabel26.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel26.setText("INITIAL BALANCE");
 
-	jTextField2.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jTextField2.setText("Account");
+	txtFldAccName.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	txtFldAccName.setText("Account");
 
 	jLabel27.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	jLabel27.setText("ACCOUNT NAME:");
 
-	jComboBox3.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard Account", "Fixed Deposit Account" }));
+	comboAccType.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	comboAccType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Standard Account", "Fixed Deposit Account" }));
+	comboAccType.addActionListener(new java.awt.event.ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String selectedAccount = (String) comboAccType.getSelectedItem();
+        if (selectedAccount.equals("Fixed Deposit Account")) {
+					lockPeriodDatePicker.setVisible(true);
+					lblForFixedInfo.setVisible(true);
+					lblLockAccUntil.setVisible(true);
+        } else {
+					lockPeriodDatePicker.setVisible(false);
+					lblForFixedInfo.setVisible(false);
+					lblLockAccUntil.setVisible(false);
+			}
+		}
+});
 
-	jLabel30.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jLabel30.setText("TYPE:");
+	lblAddAccType.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblAddAccType.setText("TYPE:");
 
 	txtBoxInitialBalance.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 	txtBoxInitialBalance.setText("0.0");
@@ -716,27 +677,22 @@ private void contentPanelInit() {
 	btnSaveAccount.setBackground(new java.awt.Color(0, 0, 0));
 	btnSaveAccount.setForeground(new java.awt.Color(255, 255, 255));
 	btnSaveAccount.setLabel("+ ADD");
-	btnSaveAccount.addActionListener(new java.awt.event.ActionListener() {
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			btnSaveAccountActionPerformed(evt);
-		}
-	});
 
-	jLabel31.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	jLabel31.setText("LOCK ACCOUNT UNTIL:");
+	lblLockAccUntil.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblLockAccUntil.setText("LOCK ACCOUNT UNTIL:");
 
 	UtilDateModel model2 = new UtilDateModel();
-	model2.setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+	model2.setDate(calendar.get(Calendar.YEAR) + 5, calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 	model2.setSelected(true); 
 	JDatePanelImpl datePanel2 = new JDatePanelImpl(model2, p);
 	lockPeriodDatePicker = new JDatePickerImpl(datePanel2, new DateLabelFormatter());
 	lockPeriodDatePicker.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
 
-	jLabel3.setText("(Only applicable for a fixed deposit account)");
+	lblForFixedInfo.setText("(For fixed deposit account)");
 
 	lockPeriodDatePicker.setVisible(false);
-	jLabel3.setVisible(false);
-	jLabel31.setVisible(false);
+	lblForFixedInfo.setVisible(false);
+	lblLockAccUntil.setVisible(false);
 
 	javax.swing.GroupLayout cardAddNewAccLayout = new javax.swing.GroupLayout(cardAddNewAcc);
 		cardAddNewAcc.setLayout(cardAddNewAccLayout);
@@ -747,12 +703,12 @@ private void contentPanelInit() {
 			.addGap(152, 152, 152)
 			.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(cardAddNewAccLayout.createSequentialGroup()
-					.addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblForFixedInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardAddNewAccLayout.createSequentialGroup()
 					.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
 						.addGroup(cardAddNewAccLayout.createSequentialGroup()
-							.addComponent(jLabel31)
+							.addComponent(lblLockAccUntil)
 							.addGap(21, 21, 21)
 							.addComponent(lockPeriodDatePicker))
 						.addComponent(btnSaveAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -760,12 +716,12 @@ private void contentPanelInit() {
 							.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 								.addComponent(jLabel26)
 								.addComponent(jLabel27)
-								.addComponent(jLabel30))
+								.addComponent(lblAddAccType))
 							.addGap(59, 59, 59)
 							.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-								.addComponent(jComboBox3, 0, 201, Short.MAX_VALUE)
+								.addComponent(comboAccType, 0, 201, Short.MAX_VALUE)
 								.addComponent(txtBoxInitialBalance)
-								.addComponent(jTextField2))))
+								.addComponent(txtFldAccName))))
 							.addGap(115, 115, 115))))
 			);
 			cardAddNewAccLayout.setVerticalGroup(
@@ -777,7 +733,7 @@ private void contentPanelInit() {
 						.addGroup(cardAddNewAccLayout.createSequentialGroup()
 							.addGap(6, 6, 6)
 							.addComponent(jLabel27))
-						.addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtFldAccName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 					.addGap(18, 18, 18)
 					.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(cardAddNewAccLayout.createSequentialGroup()
@@ -786,13 +742,13 @@ private void contentPanelInit() {
 						.addComponent(txtBoxInitialBalance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 					.addGap(18, 18, 18)
 					.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabel30)
-						.addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblAddAccType)
+						.addComponent(comboAccType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 					.addGap(35, 35, 35)
-					.addComponent(jLabel3)
+					.addComponent(lblForFixedInfo)
 					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 					.addGroup(cardAddNewAccLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabel31)
+						.addComponent(lblLockAccUntil)
 						.addComponent(lockPeriodDatePicker, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
 					.addComponent(btnSaveAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -818,7 +774,7 @@ private void contentPanelInit() {
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addComponent(sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(contentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 477, javax.swing.GroupLayout.PREFERRED_SIZE)))
+				.addComponent(contentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)))
 	);
 }
 
@@ -881,17 +837,41 @@ public Transaction getNewTransaction() {
 	System.out.println(accountName +'\n'+ selectedDate +'\n'+ amount +'\n'+ type +'\n'+ description);
 
 	return new Transaction(accountName, selectedDate, amount, type, description);
-
-	
 }
 
 public Button getBtnSaveTransaction() {
 	return btnSaveTransaction;
 }
 
-private void btnSaveAccountActionPerformed(java.awt.event.ActionEvent evt) {                                               
+public void btnSaveAccountActionPerformed(java.awt.event.ActionEvent evt) {                                               
 	btnViewAllAccActionPerformed(evt);
-}                                              
+} 
+
+public Account getNewAccount() {
+	String accountName = txtFldAccName.getText(); 
+	double balance = Double.parseDouble(txtBoxInitialBalance.getText());
+	String selectedAccount = (String) comboAccType.getSelectedItem();
+	Date selectedDateUtil = (Date) lockPeriodDatePicker.getModel().getValue();
+	Instant instant = selectedDateUtil.toInstant();
+	ZoneId zoneId = ZoneId.systemDefault();
+	LocalDate selectedDate = instant.atZone(zoneId).toLocalDate();
+
+	System.out.println(accountName);
+	System.out.println(balance);
+	if (selectedDate != null) {
+		System.out.println(selectedDate);
+	}
+
+	if (selectedAccount.equals("Fixed Deposit Account")) {
+		return new FixedDepositAccount(accountName, balance, selectedDate);
+	} else {
+		return new Account(accountName, balance);
+	}
+}
+
+public Button getBtnSaveAccount() {
+	return btnSaveAccount;
+}
 
 private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {                                             
 	CardLayout card = (CardLayout)contentPanel.getLayout();
@@ -922,12 +902,12 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JPanel header;
 	private javax.swing.JComboBox<String> comboAccountList;
 	private javax.swing.JComboBox<String> comboTypeOfTransaction;
-	private javax.swing.JComboBox<String> jComboBox3;
+	private javax.swing.JComboBox<String> comboAccType;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel10;
 	private javax.swing.JLabel jLabel11;
-	private javax.swing.JLabel jLabel17;
-	private javax.swing.JLabel jLabel18;
+	private javax.swing.JLabel lblViewAccHeaderTitle;
+	private javax.swing.JLabel lblTransactionHeaderTitle;
 	private javax.swing.JLabel jLabel19;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JLabel jLabel20;
@@ -938,28 +918,25 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JLabel jLabel25;
 	private javax.swing.JLabel jLabel26;
 	private javax.swing.JLabel jLabel27;
-	private javax.swing.JLabel jLabel30;
-	private javax.swing.JLabel jLabel31;
-	private javax.swing.JLabel jLabel4;
+	private javax.swing.JLabel lblAddAccType;
+	private javax.swing.JLabel lblLockAccUntil;
+	private javax.swing.JLabel lblAddTransactionTitle;
 	private javax.swing.JLabel jLabel6;
 	private javax.swing.JLabel jLabel8;
 	private javax.swing.JLabel jLabel9;
-	private javax.swing.JLabel jLabel3;
+	private javax.swing.JLabel lblForFixedInfo;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JScrollPane jScrollPane3;
-	private javax.swing.JScrollPane jScrollPane4;
-	private javax.swing.JSeparator jSeparator1;
-	private javax.swing.JSeparator jSeparator2;
 	private javax.swing.JTextField txtFieldAmount;
-	private javax.swing.JTextField jTextField2;
+	private javax.swing.JTextField txtFldAccName;
 	private javax.swing.JLabel lblAccName;
 	private javax.swing.JLabel lblTotalAccountBalance;
 	private javax.swing.JLabel lblYourTrans;
 	private javax.swing.JPanel pnlAccName;
 	private javax.swing.JPanel pnlAddAccHeader3;
 	private javax.swing.JPanel pnlAddTransHeader;
-	private javax.swing.JPanel pnlAllAccHeader1;
+	private javax.swing.JPanel pnlAllTransactionsHeader;
 	private javax.swing.JPanel pnlAllAccHeader2;
 	private javax.swing.JPanel sidebar;
 	private javax.swing.JTable tblAccList;

@@ -6,6 +6,7 @@ public class Transaction {
 	private String type;
 	private String description;
 	private String accountName;
+	private int index;
 
 	public Transaction(String accountName, LocalDate date, double amount, String type) {
 		this.accountName = accountName;
@@ -13,6 +14,7 @@ public class Transaction {
 		this.amount = amount;
 		this.type = type;
 		this.description = "";
+		this.index = 0;
 	}
 
 	public Transaction(String accountName, LocalDate date, double amount, String type, String description) {
@@ -21,9 +23,14 @@ public class Transaction {
 		this.amount = amount;
 		this.type = type;
 		this.description = description;
+		this.index = 0;
 	}
 
 	// Getters 
+	public int getIndex() {
+		return index;
+	}
+
 	public String getAccountName() {
 		return accountName;
 	}
@@ -59,5 +66,9 @@ public class Transaction {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 }
