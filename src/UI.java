@@ -213,7 +213,7 @@ private void sidebarInit() {
 			.addGap(20, 20, 20)
 			.addComponent(lblYourTrans)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-			.addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 			.addComponent(btnViewAllTrans, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
 			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -262,7 +262,6 @@ private void contentPanelInit() {
 	cardViewAllAccounts = new javax.swing.JPanel();
 	jScrollPane1 = new javax.swing.JScrollPane();
 	tblAccList = new javax.swing.JTable();
-	cardViewAllAccounts1 = new javax.swing.JPanel();
 	pnlAllAccHeader2 = new javax.swing.JPanel();
 	lblViewAccHeaderTitle = new javax.swing.JLabel();
 	btnAddNewAcc = new java.awt.Button();
@@ -492,130 +491,7 @@ private void contentPanelInit() {
 
 	contentPanel.add(cardAddTransaction, "cardAddTransaction");
 
-	tblAccList.setFont(new java.awt.Font("Poppins", 0, 13)); 
-	tblAccList.getTableHeader().setPreferredSize(new Dimension(header.getWidth(), 43));
-	tblAccList.getTableHeader().setFont(new Font("Poppins", 0, 12));
-	tblAccList.setRowHeight(34);
-	tblAccList.setModel(new javax.swing.table.DefaultTableModel(
-		new Object [][] {
-			{null, null},
-		},
-		new String [] {
-			"Accounts", "Balance"
-		}
-	));
-	jScrollPane1.setViewportView(tblAccList);
-
-	pnlAllAccHeader2.setBackground(new java.awt.Color(0, 0, 0));
-
-	lblViewAccHeaderTitle.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-	lblViewAccHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
-	lblViewAccHeaderTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	lblViewAccHeaderTitle.setText("{ACCOUNT NAME}'S ACCOUNTS");
-
-	btnAddNewAcc.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
-	btnAddNewAcc.setLabel("+ ADD NEW ACCOUNT");
-	btnAddNewAcc.addActionListener(new java.awt.event.ActionListener() {
-		public void actionPerformed(java.awt.event.ActionEvent evt) {
-			btnAddNewAccActionPerformed(evt);
-		}
-	});
-
-	javax.swing.GroupLayout pnlAllAccHeader2Layout = new javax.swing.GroupLayout(pnlAllAccHeader2);
-	pnlAllAccHeader2.setLayout(pnlAllAccHeader2Layout);
-	pnlAllAccHeader2Layout.setHorizontalGroup(
-		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
-		.addGap(16, 16, 16)
-			.addComponent(lblViewAccHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-			.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-			.addGap(25, 25, 25))
-	);
-	pnlAllAccHeader2Layout.setVerticalGroup(
-		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
-		.addGap(23, 23, 23)
-		.addGroup(pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-				.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-				.addComponent(lblViewAccHeaderTitle))
-			.addContainerGap(23, Short.MAX_VALUE))
-	);
-
-	jLabel22.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("INCOME");
-
-        jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setText("EXPENSES");
-
-        jLabel21.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("TOTAL");
-
-        jLabel24.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("0.0");
-
-        jLabel23.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel23.setText("0.0");
-
-        jLabel20.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText("0.0");
-
-				javax.swing.GroupLayout cardViewAllAccountsLayout = new javax.swing.GroupLayout(cardViewAllAccounts);
-        cardViewAllAccounts.setLayout(cardViewAllAccountsLayout);
-        cardViewAllAccountsLayout.setHorizontalGroup(
-					cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-					.addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addGap(0, 0, Short.MAX_VALUE))
-					.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(0, 0, Short.MAX_VALUE))
-        );
-				cardViewAllAccountsLayout.setVerticalGroup(
-					cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-					.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-						.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-							.addComponent(jLabel22)
-							.addComponent(jLabel19)
-							.addComponent(jLabel21))
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-							.addComponent(jLabel23)
-							.addComponent(jLabel24)
-							.addComponent(jLabel20))
-						.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-							.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-								.addGap(12, 12, 12)
-								.addContainerGap(323, Short.MAX_VALUE))
-							.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
-								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-								.addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, Short.MAX_VALUE, Short.MAX_VALUE)
-								.addContainerGap())))
-			);
-
-	contentPanel.add(cardViewAllAccounts, "cardViewAllAccounts");
+	cardAllAccountInit();
 
 	pnlAddAccHeader3.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -778,6 +654,128 @@ private void contentPanelInit() {
 	);
 }
 
+private void cardAllAccountInit() {
+	tblAccList.setFont(new java.awt.Font("Poppins", 0, 13)); 
+	tblAccList.getTableHeader().setPreferredSize(new Dimension(header.getWidth(), 43));
+	tblAccList.getTableHeader().setFont(new Font("Poppins", 0, 12));
+	tblAccList.setRowHeight(34);
+	tblAccList.setModel(new javax.swing.table.DefaultTableModel(
+		new Object [][] {
+			{null, null},
+		},
+		new String [] {
+			"Accounts", "Balance"
+		}
+	));
+	jScrollPane1.setViewportView(tblAccList);
+
+	pnlAllAccHeader2.setBackground(new java.awt.Color(0, 0, 0));
+
+	lblViewAccHeaderTitle.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	lblViewAccHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
+	lblViewAccHeaderTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	lblViewAccHeaderTitle.setText("{ACCOUNT NAME}'S ACCOUNTS");
+
+	btnAddNewAcc.setFont(new java.awt.Font("Poppins", 0, 12)); // NOI18N
+	btnAddNewAcc.setLabel("+ ADD NEW ACCOUNT");
+	btnAddNewAcc.addActionListener(new java.awt.event.ActionListener() {
+		public void actionPerformed(java.awt.event.ActionEvent evt) {
+			btnAddNewAccActionPerformed(evt);
+		}
+	});
+
+	javax.swing.GroupLayout pnlAllAccHeader2Layout = new javax.swing.GroupLayout(pnlAllAccHeader2);
+	pnlAllAccHeader2.setLayout(pnlAllAccHeader2Layout);
+	pnlAllAccHeader2Layout.setHorizontalGroup(
+		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
+		.addGap(16, 16, 16)
+			.addComponent(lblViewAccHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addGap(25, 25, 25))
+	);
+	pnlAllAccHeader2Layout.setVerticalGroup(
+		pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		.addGroup(pnlAllAccHeader2Layout.createSequentialGroup()
+		.addGap(23, 23, 23)
+		.addGroup(pnlAllAccHeader2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+				.addComponent(btnAddNewAcc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(lblViewAccHeaderTitle))
+			.addContainerGap(23, Short.MAX_VALUE))
+	);
+
+	jLabel22.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel22.setText("INCOME");
+
+	jLabel19.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel19.setText("EXPENSES");
+
+	jLabel21.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel21.setText("TOTAL");
+
+	jLabel24.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel24.setText("0.0");
+
+	jLabel23.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel23.setText("0.0");
+
+	jLabel20.setFont(new java.awt.Font("Poppins", 0, 14)); // NOI18N
+	jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	jLabel20.setText("0.0");
+
+	javax.swing.GroupLayout cardViewAllAccountsLayout = new javax.swing.GroupLayout(cardViewAllAccounts);
+		cardViewAllAccounts.setLayout(cardViewAllAccountsLayout);
+		cardViewAllAccountsLayout.setHorizontalGroup(
+			cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+			.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cardViewAllAccountsLayout.createSequentialGroup()
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(0, 0, Short.MAX_VALUE))
+			.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+				.addComponent(jScrollPane1))
+			.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				.addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+				.addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addGap(0, 0, Short.MAX_VALUE))
+  );
+	cardViewAllAccountsLayout.setVerticalGroup(
+		cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+		.addGroup(cardViewAllAccountsLayout.createSequentialGroup()
+			.addComponent(pnlAllAccHeader2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+			.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+				.addComponent(jLabel22)
+				.addComponent(jLabel19)
+				.addComponent(jLabel21))
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+			.addGroup(cardViewAllAccountsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+				.addComponent(jLabel23)
+				.addComponent(jLabel24)
+				.addComponent(jLabel20))
+			.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+			.addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+	);
+
+	contentPanel.add(cardViewAllAccounts, "cardViewAllAccounts");
+	
+	contentPanel.add(cardViewAllAccounts, "cardViewAllAccounts");
+}
+
 public JTable getTblTransactions() {
 	return tblTransactions;
 }
@@ -895,7 +893,6 @@ private void btnAddNewAccActionPerformed(java.awt.event.ActionEvent evt) {
 	private javax.swing.JPanel cardAddTransaction;
 	private javax.swing.JPanel cardMonth;
 	private javax.swing.JPanel cardViewAllAccounts;
-	private javax.swing.JPanel cardViewAllAccounts1;
 	private javax.swing.JPanel cardViewAllTrans;
 	private javax.swing.JPanel contentPanel;
 	private javax.swing.JTextField txtBoxInitialBalance;
