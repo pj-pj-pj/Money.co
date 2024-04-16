@@ -194,7 +194,12 @@ public class MoneyTracker {
 						if (newTransaction.getType().equalsIgnoreCase("income")) {
 							account.addIncome(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
 						} else {
-							account.addExpense(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+							boolean transactionSuccessful = account.addExpense(newTransaction.getDate(), newTransaction.getAmount(), newTransaction.getDescription());
+							if (transactionSuccessful) {
+								// do nothing
+							} else {
+								JOptionPane.showMessageDialog(null, "Withdrawal cannot be processed. The account is still within the lock-in period. ", "Operation Failed", JOptionPane.WARNING_MESSAGE);
+							}
 						}
 					}
 				}
@@ -312,7 +317,10 @@ public class MoneyTracker {
 			}
 		}
 
+		login.getTxtFieldUsername().setText("");
+		login.getTxtFldPassword().setText("");
 		JOptionPane.showMessageDialog(null, "Invalid username or password.", "Operation Failed", JOptionPane.WARNING_MESSAGE);
+
 		return null;
 	}
 

@@ -9,18 +9,18 @@ public class FixedDepositTransactor implements Transactor {
 		return account.getBalance();
 	}
 
-	public double recordExpense(Account account, LocalDate date, double amount, String description) {
-		return 0.0;
+	public boolean recordExpense(Account account, LocalDate date, double amount, String description) {
+		return true;
 	}
 
-	public double recordExpense(FixedDepositAccount account, LocalDate date, double amount, String description) {
+	public boolean recordExpense(FixedDepositAccount account, LocalDate date, double amount, String description) {
 		if (account.calculateIfLockInPeriodOver(date)) {
 			Transaction withdrawTransaction = new Transaction(account.getAccountName(), date, Math.abs(amount) * -1, "Withdraw");
 			account.getTransactions().add(withdrawTransaction);
-			withdrawTransaction.setIndex(account.getTransactions().indexOf(withdrawTransaction));		} else {
-			System.out.println("Withdrawal cannot be processed. The account is still within the lock-in period.");
-		}
-		return account.getBalance();
+			withdrawTransaction.setIndex(account.getTransactions().indexOf(withdrawTransaction));
+			return true;
+		} 
+		return false;
 	}
 
 }

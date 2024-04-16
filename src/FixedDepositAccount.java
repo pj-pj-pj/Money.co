@@ -11,8 +11,8 @@ public class FixedDepositAccount extends Account {
 	}
 
 	@Override
-	public void addExpense(LocalDate date, double amount, String description) {
-		transactor.recordExpense(this, date, amount, description);
+	public boolean addExpense(LocalDate date, double amount, String description) {
+		return transactor.recordExpense(this, date, amount, description);
 	}
 
 	@Override

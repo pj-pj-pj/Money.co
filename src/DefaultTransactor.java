@@ -11,11 +11,11 @@ public class DefaultTransactor implements Transactor {
 	}
 
 	@Override
-	public double recordExpense(Account account, LocalDate date, double amount, String description) {
+	public boolean recordExpense(Account account, LocalDate date, double amount, String description) {
 		Transaction withdrawTransaction = new Transaction(account.getAccountName(), date, Math.abs(amount) * -1, "Withdraw", description);
 		account.getTransactions().add(withdrawTransaction);
 		withdrawTransaction.setIndex(account.getTransactions().indexOf(withdrawTransaction));
 		
-		return account.getBalance();
+		return true;
 	}
 }
