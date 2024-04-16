@@ -1,3 +1,4 @@
+import javax.swing.JButton;
 import javax.swing.JPasswordField;
 
 public class LogInUI extends EntryUI {
@@ -151,5 +152,9 @@ public class LogInUI extends EntryUI {
 	public String getPassword() {
 		String str = new String(txtFldPassword.getPassword());
 		return str;
+	}
+
+	public JPasswordField getTxtFldPassword() {
+		return txtFldPassword;
 	}
 }
